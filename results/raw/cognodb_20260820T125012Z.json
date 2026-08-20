@@ -1,0 +1,495 @@
+{
+  "platform": "cognodb",
+  "display_name": "CognoDB Cloud (c0 free)",
+  "engine": "CognoDB",
+  "query_language": "Cypher (Bolt)",
+  "deployment": "managed-free-tier",
+  "advertised": {
+    "vcpu": "0.5 (burstable)",
+    "ram": "256 MB",
+    "disk": "1 GB"
+  },
+  "started_utc": "2026-08-20T12:11:54.167739+00:00",
+  "host": {
+    "hostname": "DESKTOP-FSOCI3R",
+    "python": "3.13.1",
+    "platform": "Windows-11-10.0.22631-SP0",
+    "processor": "AMD64 Family 23 Model 96 Stepping 1, AuthenticAMD",
+    "harness_version": "1.0.0",
+    "git_sha": "unknown"
+  },
+  "dataset": {
+    "name": "cit-HepTh",
+    "node_count": 5325,
+    "edge_count": 100000,
+    "nodes_csv_sha256": "3647cb65a4d5c363079b397edec082ac49f359cdca79e66fc57e42b80ff3bf40",
+    "edges_csv_sha256": "7a864b985afb5d605354dd6b3d9ab6c027b07d62a3d3e3b097072385d9d401ab"
+  },
+  "config": {
+    "iterations": 300,
+    "warmup": 30,
+    "repeats": 3,
+    "batch_size": 2000,
+    "concurrency_levels": [
+      1,
+      10,
+      40
+    ],
+    "mixed_duration_s": 60.0,
+    "read_ratio": 0.9
+  },
+  "caveats": [],
+  "network": {
+    "tcp_rtt": {
+      "median_ms": 297.413,
+      "min_ms": 256.155,
+      "samples": 20
+    }
+  },
+  "ingest": {
+    "nodes_loaded": 5325,
+    "relationships_loaded": 100000,
+    "node_seconds": 2.079,
+    "relationship_seconds": 19.538,
+    "total_seconds": 21.617,
+    "nodes_per_second": 2560.9,
+    "relationships_per_second": 5118.2,
+    "method": "official neo4j Python driver, UNWIND-batched CREATE over Bolt; relationships matched on the unique :Paper(id) constraint",
+    "batch_size": 2000
+  },
+  "schema_applied": [
+    "CREATE CONSTRAINT paper_id IF NOT EXISTS FOR (p:Paper) REQUIRE p.id IS UNIQUE",
+    "CREATE INDEX paper_year IF NOT EXISTS FOR (p:Paper) ON (p.year)"
+  ],
+  "verified_node_count": 5325,
+  "verified_relationship_count": 100000,
+  "dataset_matches": true,
+  "reads": {
+    "hop1": {
+      "warm": {
+        "n": 900,
+        "p50": 308.313,
+        "p90": 331.645,
+        "p95": 377.704,
+        "p99": 414.714,
+        "mean": 300.798,
+        "stdev": 39.582,
+        "min": 252.896,
+        "max": 749.194,
+        "errors": 0,
+        "timeouts": 0,
+        "rows_returned_median": 16.0
+      },
+      "cold": {
+        "n": 90,
+        "p50": 318.987,
+        "p90": 344.354,
+        "p95": 380.151,
+        "p99": 392.91,
+        "mean": 310.761,
+        "stdev": 32.151,
+        "min": 257.848,
+        "max": 392.91,
+        "errors": 0,
+        "timeouts": 0,
+        "rows_returned_median": 0.0
+      },
+      "variance_p50_across_repeats": {
+        "values": [
+          316.46,
+          273.878,
+          309.522
+        ],
+        "mean": 299.953,
+        "stdev": 22.847,
+        "cv_percent": 7.62
+      },
+      "variance_p95_across_repeats": {
+        "values": [
+          380.635,
+          355.714,
+          379.068
+        ],
+        "mean": 371.806,
+        "stdev": 13.958,
+        "cv_percent": 3.75
+      },
+      "error_examples": []
+    },
+    "hop2": {
+      "warm": {
+        "n": 900,
+        "p50": 315.099,
+        "p90": 355.021,
+        "p95": 380.166,
+        "p99": 550.784,
+        "mean": 315.108,
+        "stdev": 48.215,
+        "min": 256.428,
+        "max": 681.713,
+        "errors": 0,
+        "timeouts": 0,
+        "rows_returned_median": 201.5
+      },
+      "cold": {
+        "n": 90,
+        "p50": 317.812,
+        "p90": 333.831,
+        "p95": 361.648,
+        "p99": 405.648,
+        "mean": 312.234,
+        "stdev": 26.404,
+        "min": 263.376,
+        "max": 405.648,
+        "errors": 0,
+        "timeouts": 0,
+        "rows_returned_median": 0.0
+      },
+      "variance_p50_across_repeats": {
+        "values": [
+          318.137,
+          313.553,
+          310.98
+        ],
+        "mean": 314.223,
+        "stdev": 3.625,
+        "cv_percent": 1.15
+      },
+      "variance_p95_across_repeats": {
+        "values": [
+          381.891,
+          374.331,
+          383.772
+        ],
+        "mean": 379.998,
+        "stdev": 4.997,
+        "cv_percent": 1.32
+      },
+      "error_examples": []
+    },
+    "hop3": {
+      "warm": {
+        "n": 900,
+        "p50": 442.048,
+        "p90": 961.673,
+        "p95": 1080.341,
+        "p99": 1477.589,
+        "mean": 577.891,
+        "stdev": 301.257,
+        "min": 253.363,
+        "max": 2788.398,
+        "errors": 0,
+        "timeouts": 0,
+        "rows_returned_median": 765.0
+      },
+      "cold": {
+        "n": 90,
+        "p50": 406.967,
+        "p90": 927.479,
+        "p95": 1064.268,
+        "p99": 1215.318,
+        "mean": 568.743,
+        "stdev": 263.173,
+        "min": 288.74,
+        "max": 1215.318,
+        "errors": 0,
+        "timeouts": 0,
+        "rows_returned_median": 0.0
+      },
+      "variance_p50_across_repeats": {
+        "values": [
+          428.576,
+          446.195,
+          457.81
+        ],
+        "mean": 444.194,
+        "stdev": 14.719,
+        "cv_percent": 3.31
+      },
+      "variance_p95_across_repeats": {
+        "values": [
+          1061.568,
+          1023.736,
+          1107.997
+        ],
+        "mean": 1064.434,
+        "stdev": 42.204,
+        "cv_percent": 3.96
+      },
+      "error_examples": []
+    },
+    "point_lookup": {
+      "warm": {
+        "n": 900,
+        "p50": 315.762,
+        "p90": 329.131,
+        "p95": 372.856,
+        "p99": 389.239,
+        "mean": 300.472,
+        "stdev": 35.064,
+        "min": 250.054,
+        "max": 423.867,
+        "errors": 0,
+        "timeouts": 0,
+        "rows_returned_median": 1.0
+      },
+      "cold": {
+        "n": 90,
+        "p50": 312.383,
+        "p90": 328.58,
+        "p95": 367.972,
+        "p99": 399.567,
+        "mean": 300.718,
+        "stdev": 35.179,
+        "min": 254.087,
+        "max": 399.567,
+        "errors": 0,
+        "timeouts": 0,
+        "rows_returned_median": 0.0
+      },
+      "variance_p50_across_repeats": {
+        "values": [
+          319.505,
+          278.692,
+          311.37
+        ],
+        "mean": 303.189,
+        "stdev": 21.601,
+        "cv_percent": 7.12
+      },
+      "variance_p95_across_repeats": {
+        "values": [
+          363.039,
+          379.973,
+          372.959
+        ],
+        "mean": 371.99,
+        "stdev": 8.508,
+        "cv_percent": 2.29
+      },
+      "error_examples": []
+    },
+    "filtered_lookup": {
+      "warm": {
+        "n": 900,
+        "p50": 312.159,
+        "p90": 331.51,
+        "p95": 368.699,
+        "p99": 407.884,
+        "mean": 301.632,
+        "stdev": 34.194,
+        "min": 254.18,
+        "max": 431.642,
+        "errors": 0,
+        "timeouts": 0,
+        "rows_returned_median": 100.0
+      },
+      "cold": {
+        "n": 90,
+        "p50": 317.729,
+        "p90": 362.29,
+        "p95": 387.308,
+        "p99": 422.443,
+        "mean": 307.805,
+        "stdev": 37.826,
+        "min": 257.287,
+        "max": 422.443,
+        "errors": 0,
+        "timeouts": 0,
+        "rows_returned_median": 0.0
+      },
+      "variance_p50_across_repeats": {
+        "values": [
+          318.381,
+          278.918,
+          318.135
+        ],
+        "mean": 305.145,
+        "stdev": 22.713,
+        "cv_percent": 7.44
+      },
+      "variance_p95_across_repeats": {
+        "values": [
+          360.064,
+          365.717,
+          371.611
+        ],
+        "mean": 365.797,
+        "stdev": 5.774,
+        "cv_percent": 1.58
+      },
+      "error_examples": []
+    },
+    "aggregation": {
+      "warm": {
+        "n": 900,
+        "p50": 318.344,
+        "p90": 349.988,
+        "p95": 369.576,
+        "p99": 402.631,
+        "mean": 310.886,
+        "stdev": 35.687,
+        "min": 261.654,
+        "max": 888.732,
+        "errors": 0,
+        "timeouts": 0,
+        "rows_returned_median": 12.0
+      },
+      "cold": {
+        "n": 90,
+        "p50": 288.327,
+        "p90": 329.351,
+        "p95": 353.652,
+        "p99": 432.754,
+        "mean": 299.017,
+        "stdev": 31.258,
+        "min": 264.797,
+        "max": 432.754,
+        "errors": 0,
+        "timeouts": 0,
+        "rows_returned_median": 0.0
+      },
+      "variance_p50_across_repeats": {
+        "values": [
+          319.325,
+          290.808,
+          319.349
+        ],
+        "mean": 309.827,
+        "stdev": 16.471,
+        "cv_percent": 5.32
+      },
+      "variance_p95_across_repeats": {
+        "values": [
+          370.27,
+          367.646,
+          369.629
+        ],
+        "mean": 369.182,
+        "stdev": 1.368,
+        "cv_percent": 0.37
+      },
+      "error_examples": []
+    }
+  },
+  "mixed": [
+    {
+      "concurrency": 1,
+      "duration_s": 60.019,
+      "operations": 194,
+      "reads": 173,
+      "writes": 21,
+      "errors": 0,
+      "qps": 3.23,
+      "read_latency": {
+        "n": 173,
+        "p50": 319.413,
+        "p90": 331.203,
+        "p95": 359.965,
+        "p99": 399.115,
+        "mean": 309.172,
+        "stdev": 28.277,
+        "min": 259.015,
+        "max": 424.517,
+        "errors": 0,
+        "timeouts": 0,
+        "rows_returned_median": 0.0
+      },
+      "write_latency": {
+        "n": 21,
+        "p50": 318.389,
+        "p90": 330.889,
+        "p95": 349.309,
+        "p99": 360.961,
+        "mean": 310.922,
+        "stdev": 24.143,
+        "min": 266.195,
+        "max": 360.961,
+        "errors": 0,
+        "timeouts": 0,
+        "rows_returned_median": 0.0
+      }
+    },
+    {
+      "concurrency": 10,
+      "duration_s": 60.131,
+      "operations": 1865,
+      "reads": 1688,
+      "writes": 177,
+      "errors": 0,
+      "qps": 31.02,
+      "read_latency": {
+        "n": 1688,
+        "p50": 319.233,
+        "p90": 342.871,
+        "p95": 361.185,
+        "p99": 388.587,
+        "mean": 323.446,
+        "stdev": 105.697,
+        "min": 256.211,
+        "max": 1731.158,
+        "errors": 0,
+        "timeouts": 0,
+        "rows_returned_median": 0.0
+      },
+      "write_latency": {
+        "n": 177,
+        "p50": 313.183,
+        "p90": 338.628,
+        "p95": 361.242,
+        "p99": 385.968,
+        "mean": 312.149,
+        "stdev": 24.73,
+        "min": 263.386,
+        "max": 417.322,
+        "errors": 0,
+        "timeouts": 0,
+        "rows_returned_median": 0.0
+      }
+    },
+    {
+      "concurrency": 40,
+      "duration_s": 60.259,
+      "operations": 7563,
+      "reads": 6806,
+      "writes": 757,
+      "errors": 0,
+      "qps": 125.51,
+      "read_latency": {
+        "n": 6806,
+        "p50": 314.997,
+        "p90": 356.702,
+        "p95": 372.157,
+        "p99": 417.043,
+        "mean": 319.696,
+        "stdev": 91.814,
+        "min": 252.143,
+        "max": 1648.132,
+        "errors": 0,
+        "timeouts": 0,
+        "rows_returned_median": 0.0
+      },
+      "write_latency": {
+        "n": 757,
+        "p50": 295.68,
+        "p90": 330.893,
+        "p95": 341.797,
+        "p99": 393.023,
+        "mean": 300.564,
+        "stdev": 53.853,
+        "min": 258.755,
+        "max": 1602.099,
+        "errors": 0,
+        "timeouts": 0,
+        "rows_returned_median": 0.0
+      }
+    }
+  ],
+  "footprint": {
+    "store_size": "not observable (CypherSyntaxError)",
+    "components": "not observable (CypherSyntaxError)",
+    "advertised": "0.5 vCPU burstable / 256 MB RAM / 1 GB disk (console)"
+  },
+  "total_seconds": 2298.15,
+  "finished_utc": "2026-08-20T12:50:12.668973+00:00"
+}

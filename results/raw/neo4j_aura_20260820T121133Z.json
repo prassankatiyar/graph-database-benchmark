@@ -1,0 +1,512 @@
+{
+  "platform": "neo4j_aura",
+  "display_name": "Neo4j AuraDB Free",
+  "engine": "Neo4j 5.x",
+  "query_language": "Cypher (Bolt)",
+  "deployment": "managed-free-tier",
+  "advertised": {
+    "vcpu": "not published (shared)",
+    "ram": "not published (shared)",
+    "disk": "200k nodes / 400k relationships cap"
+  },
+  "started_utc": "2026-08-20T11:56:25.130085+00:00",
+  "host": {
+    "hostname": "DESKTOP-FSOCI3R",
+    "python": "3.13.1",
+    "platform": "Windows-11-10.0.22631-SP0",
+    "processor": "AMD64 Family 23 Model 96 Stepping 1, AuthenticAMD",
+    "harness_version": "1.0.0",
+    "git_sha": "unknown"
+  },
+  "dataset": {
+    "name": "cit-HepTh",
+    "node_count": 5325,
+    "edge_count": 100000,
+    "nodes_csv_sha256": "3647cb65a4d5c363079b397edec082ac49f359cdca79e66fc57e42b80ff3bf40",
+    "edges_csv_sha256": "7a864b985afb5d605354dd6b3d9ab6c027b07d62a3d3e3b097072385d9d401ab"
+  },
+  "config": {
+    "iterations": 300,
+    "warmup": 30,
+    "repeats": 3,
+    "batch_size": 2000,
+    "concurrency_levels": [
+      1,
+      10,
+      40
+    ],
+    "mixed_duration_s": 60.0,
+    "read_ratio": 0.9
+  },
+  "caveats": [],
+  "network": {
+    "tcp_rtt": {
+      "median_ms": 110.283,
+      "min_ms": 90.11,
+      "samples": 20
+    }
+  },
+  "ingest": {
+    "nodes_loaded": 5325,
+    "relationships_loaded": 100000,
+    "node_seconds": 0.832,
+    "relationship_seconds": 9.441,
+    "total_seconds": 10.272,
+    "nodes_per_second": 6403.3,
+    "relationships_per_second": 10592.5,
+    "method": "official neo4j Python driver, UNWIND-batched CREATE over Bolt; relationships matched on the unique :Paper(id) constraint",
+    "batch_size": 2000
+  },
+  "schema_applied": [
+    "CREATE CONSTRAINT paper_id IF NOT EXISTS FOR (p:Paper) REQUIRE p.id IS UNIQUE",
+    "CREATE INDEX paper_year IF NOT EXISTS FOR (p:Paper) ON (p.year)"
+  ],
+  "verified_node_count": 5325,
+  "verified_relationship_count": 100000,
+  "dataset_matches": true,
+  "reads": {
+    "hop1": {
+      "warm": {
+        "n": 900,
+        "p50": 106.845,
+        "p90": 117.745,
+        "p95": 122.789,
+        "p99": 187.109,
+        "mean": 108.11,
+        "stdev": 23.865,
+        "min": 87.844,
+        "max": 670.199,
+        "errors": 0,
+        "timeouts": 0,
+        "rows_returned_median": 16.0
+      },
+      "cold": {
+        "n": 90,
+        "p50": 109.668,
+        "p90": 194.93,
+        "p95": 235.809,
+        "p99": 254.978,
+        "mean": 122.543,
+        "stdev": 39.889,
+        "min": 92.32,
+        "max": 254.978,
+        "errors": 0,
+        "timeouts": 0,
+        "rows_returned_median": 0.0
+      },
+      "variance_p50_across_repeats": {
+        "values": [
+          102.916,
+          103.825,
+          109.265
+        ],
+        "mean": 105.335,
+        "stdev": 3.433,
+        "cv_percent": 3.26
+      },
+      "variance_p95_across_repeats": {
+        "values": [
+          119.044,
+          120.735,
+          131.647
+        ],
+        "mean": 123.809,
+        "stdev": 6.841,
+        "cv_percent": 5.53
+      },
+      "error_examples": []
+    },
+    "hop2": {
+      "warm": {
+        "n": 900,
+        "p50": 111.467,
+        "p90": 125.166,
+        "p95": 129.954,
+        "p99": 203.115,
+        "mean": 113.877,
+        "stdev": 19.069,
+        "min": 87.474,
+        "max": 380.709,
+        "errors": 0,
+        "timeouts": 0,
+        "rows_returned_median": 201.5
+      },
+      "cold": {
+        "n": 90,
+        "p50": 112.89,
+        "p90": 127.895,
+        "p95": 130.608,
+        "p99": 224.524,
+        "mean": 115.626,
+        "stdev": 14.291,
+        "min": 94.159,
+        "max": 224.524,
+        "errors": 0,
+        "timeouts": 0,
+        "rows_returned_median": 0.0
+      },
+      "variance_p50_across_repeats": {
+        "values": [
+          110.905,
+          112.657,
+          110.942
+        ],
+        "mean": 111.501,
+        "stdev": 1.001,
+        "cv_percent": 0.9
+      },
+      "variance_p95_across_repeats": {
+        "values": [
+          128.603,
+          134.359,
+          129.064
+        ],
+        "mean": 130.675,
+        "stdev": 3.198,
+        "cv_percent": 2.45
+      },
+      "error_examples": []
+    },
+    "hop3": {
+      "warm": {
+        "n": 900,
+        "p50": 130.96,
+        "p90": 253.171,
+        "p95": 262.415,
+        "p99": 286.646,
+        "mean": 169.974,
+        "stdev": 67.709,
+        "min": 91.302,
+        "max": 898.742,
+        "errors": 0,
+        "timeouts": 0,
+        "rows_returned_median": 765.0
+      },
+      "cold": {
+        "n": 90,
+        "p50": 131.65,
+        "p90": 249.739,
+        "p95": 263.517,
+        "p99": 277.175,
+        "mean": 169.547,
+        "stdev": 60.143,
+        "min": 101.116,
+        "max": 277.175,
+        "errors": 0,
+        "timeouts": 0,
+        "rows_returned_median": 0.0
+      },
+      "variance_p50_across_repeats": {
+        "values": [
+          130.491,
+          132.956,
+          129.622
+        ],
+        "mean": 131.023,
+        "stdev": 1.729,
+        "cv_percent": 1.32
+      },
+      "variance_p95_across_repeats": {
+        "values": [
+          260.819,
+          264.137,
+          259.364
+        ],
+        "mean": 261.44,
+        "stdev": 2.446,
+        "cv_percent": 0.94
+      },
+      "error_examples": []
+    },
+    "point_lookup": {
+      "warm": {
+        "n": 900,
+        "p50": 107.98,
+        "p90": 114.151,
+        "p95": 119.889,
+        "p99": 200.633,
+        "mean": 106.772,
+        "stdev": 14.415,
+        "min": 88.827,
+        "max": 242.801,
+        "errors": 0,
+        "timeouts": 0,
+        "rows_returned_median": 1.0
+      },
+      "cold": {
+        "n": 90,
+        "p50": 106.463,
+        "p90": 122.484,
+        "p95": 134.416,
+        "p99": 221.624,
+        "mean": 109.091,
+        "stdev": 16.753,
+        "min": 89.418,
+        "max": 221.624,
+        "errors": 0,
+        "timeouts": 0,
+        "rows_returned_median": 0.0
+      },
+      "variance_p50_across_repeats": {
+        "values": [
+          104.743,
+          106.747,
+          109.334
+        ],
+        "mean": 106.941,
+        "stdev": 2.302,
+        "cv_percent": 2.15
+      },
+      "variance_p95_across_repeats": {
+        "values": [
+          119.915,
+          118.554,
+          120.25
+        ],
+        "mean": 119.573,
+        "stdev": 0.898,
+        "cv_percent": 0.75
+      },
+      "error_examples": []
+    },
+    "filtered_lookup": {
+      "warm": {
+        "n": 900,
+        "p50": 109.694,
+        "p90": 118.823,
+        "p95": 120.65,
+        "p99": 135.062,
+        "mean": 110.372,
+        "stdev": 14.22,
+        "min": 90.942,
+        "max": 258.876,
+        "errors": 0,
+        "timeouts": 0,
+        "rows_returned_median": 100.0
+      },
+      "cold": {
+        "n": 90,
+        "p50": 109.417,
+        "p90": 120.271,
+        "p95": 121.556,
+        "p99": 207.958,
+        "mean": 109.345,
+        "stdev": 13.452,
+        "min": 90.8,
+        "max": 207.958,
+        "errors": 0,
+        "timeouts": 0,
+        "rows_returned_median": 0.0
+      },
+      "variance_p50_across_repeats": {
+        "values": [
+          109.547,
+          109.967,
+          109.609
+        ],
+        "mean": 109.708,
+        "stdev": 0.227,
+        "cv_percent": 0.21
+      },
+      "variance_p95_across_repeats": {
+        "values": [
+          120.293,
+          120.684,
+          120.666
+        ],
+        "mean": 120.548,
+        "stdev": 0.221,
+        "cv_percent": 0.18
+      },
+      "error_examples": []
+    },
+    "aggregation": {
+      "warm": {
+        "n": 900,
+        "p50": 109.142,
+        "p90": 117.954,
+        "p95": 120.261,
+        "p99": 200.046,
+        "mean": 108.562,
+        "stdev": 13.926,
+        "min": 86.508,
+        "max": 240.568,
+        "errors": 0,
+        "timeouts": 0,
+        "rows_returned_median": 12.0
+      },
+      "cold": {
+        "n": 90,
+        "p50": 109.329,
+        "p90": 117.791,
+        "p95": 120.375,
+        "p99": 229.657,
+        "mean": 109.386,
+        "stdev": 14.67,
+        "min": 95.23,
+        "max": 229.657,
+        "errors": 0,
+        "timeouts": 0,
+        "rows_returned_median": 0.0
+      },
+      "variance_p50_across_repeats": {
+        "values": [
+          107.861,
+          109.374,
+          109.335
+        ],
+        "mean": 108.857,
+        "stdev": 0.862,
+        "cv_percent": 0.79
+      },
+      "variance_p95_across_repeats": {
+        "values": [
+          119.738,
+          120.197,
+          120.653
+        ],
+        "mean": 120.196,
+        "stdev": 0.458,
+        "cv_percent": 0.38
+      },
+      "error_examples": []
+    }
+  },
+  "mixed": [
+    {
+      "concurrency": 1,
+      "duration_s": 60.023,
+      "operations": 545,
+      "reads": 486,
+      "writes": 59,
+      "errors": 0,
+      "qps": 9.08,
+      "read_latency": {
+        "n": 486,
+        "p50": 109.941,
+        "p90": 119.154,
+        "p95": 120.883,
+        "p99": 201.932,
+        "mean": 109.915,
+        "stdev": 14.963,
+        "min": 88.916,
+        "max": 262.007,
+        "errors": 0,
+        "timeouts": 0,
+        "rows_returned_median": 0.0
+      },
+      "write_latency": {
+        "n": 59,
+        "p50": 109.747,
+        "p90": 128.384,
+        "p95": 138.325,
+        "p99": 203.384,
+        "mean": 111.862,
+        "stdev": 15.562,
+        "min": 92.522,
+        "max": 203.384,
+        "errors": 0,
+        "timeouts": 0,
+        "rows_returned_median": 0.0
+      }
+    },
+    {
+      "concurrency": 10,
+      "duration_s": 60.138,
+      "operations": 5857,
+      "reads": 5280,
+      "writes": 577,
+      "errors": 0,
+      "qps": 97.39,
+      "read_latency": {
+        "n": 5280,
+        "p50": 100.108,
+        "p90": 108.254,
+        "p95": 111.234,
+        "p99": 168.366,
+        "mean": 102.354,
+        "stdev": 20.491,
+        "min": 84.429,
+        "max": 519.908,
+        "errors": 0,
+        "timeouts": 0,
+        "rows_returned_median": 0.0
+      },
+      "write_latency": {
+        "n": 577,
+        "p50": 103.789,
+        "p90": 110.49,
+        "p95": 114.198,
+        "p99": 151.417,
+        "mean": 105.168,
+        "stdev": 11.477,
+        "min": 93.001,
+        "max": 270.736,
+        "errors": 0,
+        "timeouts": 0,
+        "rows_returned_median": 0.0
+      }
+    },
+    {
+      "concurrency": 40,
+      "duration_s": 60.098,
+      "operations": 22907,
+      "reads": 20559,
+      "writes": 2348,
+      "errors": 0,
+      "qps": 381.16,
+      "read_latency": {
+        "n": 20559,
+        "p50": 100.762,
+        "p90": 114.785,
+        "p95": 125.047,
+        "p99": 165.686,
+        "mean": 104.856,
+        "stdev": 28.371,
+        "min": 82.129,
+        "max": 791.423,
+        "errors": 0,
+        "timeouts": 0,
+        "rows_returned_median": 0.0
+      },
+      "write_latency": {
+        "n": 2348,
+        "p50": 102.541,
+        "p90": 112.623,
+        "p95": 119.48,
+        "p99": 147.672,
+        "mean": 104.888,
+        "stdev": 18.094,
+        "min": 87.048,
+        "max": 772.84,
+        "errors": 0,
+        "timeouts": 0,
+        "rows_returned_median": 0.0
+      }
+    }
+  ],
+  "footprint": {
+    "components": [
+      {
+        "name": "Neo4j Kernel",
+        "versions": [
+          "5.27-aura"
+        ],
+        "edition": "enterprise"
+      },
+      {
+        "name": "Cypher",
+        "versions": [
+          "5",
+          "25"
+        ],
+        "edition": ""
+      }
+    ],
+    "store_size": "not observable (Aura Free exposes no host metrics)",
+    "memory": "not observable",
+    "advertised": "shared infrastructure; 200k node / 400k relationship cap"
+  },
+  "total_seconds": 907.82,
+  "finished_utc": "2026-08-20T12:11:33.257492+00:00"
+}

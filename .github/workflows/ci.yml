@@ -1,0 +1,24 @@
+# CI does not touch a real database -- there are no credentials in this repo
+# and there should not be. It runs the unit tests and the offline self-test,
+# which is enough to catch a broken harness before it produces broken numbers.
+name: ci
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements.txt
+      - name: Unit tests
+        run: python -m pytest tests -q
+      - name: Offline self-test (mock backend, synthetic fixture)
+        run: |
+          python -m bench dataset --fixture
+          python -m bench selftest

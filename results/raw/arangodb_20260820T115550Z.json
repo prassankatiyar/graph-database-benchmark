@@ -1,0 +1,497 @@
+{
+  "platform": "arangodb",
+  "display_name": "ArangoDB 3.11 (self-hosted, capped)",
+  "engine": "ArangoDB (multi-model, RocksDB)",
+  "query_language": "AQL (HTTP)",
+  "deployment": "self-hosted-capped",
+  "advertised": {
+    "vcpu": "0.5 (cgroup limit)",
+    "ram": "256 MB (cgroup limit)",
+    "disk": "1 GB volume"
+  },
+  "started_utc": "2026-08-20T11:48:12.840566+00:00",
+  "host": {
+    "hostname": "DESKTOP-FSOCI3R",
+    "python": "3.13.1",
+    "platform": "Windows-11-10.0.22631-SP0",
+    "processor": "AMD64 Family 23 Model 96 Stepping 1, AuthenticAMD",
+    "harness_version": "1.0.0",
+    "git_sha": "unknown"
+  },
+  "dataset": {
+    "name": "cit-HepTh",
+    "node_count": 5325,
+    "edge_count": 100000,
+    "nodes_csv_sha256": "3647cb65a4d5c363079b397edec082ac49f359cdca79e66fc57e42b80ff3bf40",
+    "edges_csv_sha256": "7a864b985afb5d605354dd6b3d9ab6c027b07d62a3d3e3b097072385d9d401ab"
+  },
+  "config": {
+    "iterations": 300,
+    "warmup": 30,
+    "repeats": 3,
+    "batch_size": 2000,
+    "concurrency_levels": [
+      1,
+      10,
+      40
+    ],
+    "mixed_duration_s": 60.0,
+    "read_ratio": 0.9
+  },
+  "caveats": [],
+  "network": {
+    "tcp_rtt": {
+      "median_ms": 12.223,
+      "min_ms": 0.616,
+      "samples": 20
+    }
+  },
+  "ingest": {
+    "nodes_loaded": 5325,
+    "relationships_loaded": 100000,
+    "node_seconds": 0.168,
+    "relationship_seconds": 3.705,
+    "total_seconds": 3.873,
+    "nodes_per_second": 31609.5,
+    "relationships_per_second": 26993.9,
+    "method": "python-arango insert_many() bulk document API over HTTP",
+    "batch_size": 2000
+  },
+  "schema_applied": [
+    "CREATE COLLECTION papers (primary index on _key)",
+    "CREATE EDGE COLLECTION cites (_from/_to indexes)",
+    "CREATE PERSISTENT INDEX idx_year ON papers(year)",
+    "CREATE PERSISTENT INDEX idx_id ON papers(id)"
+  ],
+  "verified_node_count": 5325,
+  "verified_relationship_count": 100000,
+  "dataset_matches": true,
+  "reads": {
+    "hop1": {
+      "warm": {
+        "n": 900,
+        "p50": 44.118,
+        "p90": 47.446,
+        "p95": 48.262,
+        "p99": 48.901,
+        "mean": 44.528,
+        "stdev": 1.495,
+        "min": 42.586,
+        "max": 50.536,
+        "errors": 0,
+        "timeouts": 0,
+        "rows_returned_median": 16.0
+      },
+      "cold": {
+        "n": 90,
+        "p50": 44.135,
+        "p90": 46.556,
+        "p95": 47.887,
+        "p99": 391.601,
+        "mean": 48.058,
+        "stdev": 36.908,
+        "min": 3.506,
+        "max": 391.601,
+        "errors": 0,
+        "timeouts": 0,
+        "rows_returned_median": 0.0
+      },
+      "variance_p50_across_repeats": {
+        "values": [
+          44.134,
+          44.15,
+          44.083
+        ],
+        "mean": 44.122,
+        "stdev": 0.035,
+        "cv_percent": 0.08
+      },
+      "variance_p95_across_repeats": {
+        "values": [
+          48.406,
+          48.306,
+          47.881
+        ],
+        "mean": 48.198,
+        "stdev": 0.279,
+        "cv_percent": 0.58
+      },
+      "error_examples": []
+    },
+    "hop2": {
+      "warm": {
+        "n": 900,
+        "p50": 45.326,
+        "p90": 48.101,
+        "p95": 48.68,
+        "p99": 51.085,
+        "mean": 45.766,
+        "stdev": 1.843,
+        "min": 42.608,
+        "max": 53.206,
+        "errors": 0,
+        "timeouts": 0,
+        "rows_returned_median": 184.0
+      },
+      "cold": {
+        "n": 90,
+        "p50": 45.267,
+        "p90": 48.463,
+        "p95": 49.669,
+        "p99": 51.093,
+        "mean": 45.985,
+        "stdev": 2.044,
+        "min": 42.953,
+        "max": 51.093,
+        "errors": 0,
+        "timeouts": 0,
+        "rows_returned_median": 0.0
+      },
+      "variance_p50_across_repeats": {
+        "values": [
+          45.343,
+          45.05,
+          45.739
+        ],
+        "mean": 45.377,
+        "stdev": 0.346,
+        "cv_percent": 0.76
+      },
+      "variance_p95_across_repeats": {
+        "values": [
+          48.576,
+          48.345,
+          49.028
+        ],
+        "mean": 48.65,
+        "stdev": 0.347,
+        "cv_percent": 0.71
+      },
+      "error_examples": []
+    },
+    "hop3": {
+      "warm": {
+        "n": 900,
+        "p50": 47.797,
+        "p90": 51.548,
+        "p95": 52.815,
+        "p99": 54.616,
+        "mean": 48.092,
+        "stdev": 2.517,
+        "min": 42.561,
+        "max": 57.364,
+        "errors": 0,
+        "timeouts": 0,
+        "rows_returned_median": 601.0
+      },
+      "cold": {
+        "n": 90,
+        "p50": 48.274,
+        "p90": 52.24,
+        "p95": 53.159,
+        "p99": 54.013,
+        "mean": 48.847,
+        "stdev": 2.289,
+        "min": 45.406,
+        "max": 54.013,
+        "errors": 0,
+        "timeouts": 0,
+        "rows_returned_median": 0.0
+      },
+      "variance_p50_across_repeats": {
+        "values": [
+          47.717,
+          47.778,
+          47.859
+        ],
+        "mean": 47.785,
+        "stdev": 0.071,
+        "cv_percent": 0.15
+      },
+      "variance_p95_across_repeats": {
+        "values": [
+          52.424,
+          52.811,
+          52.851
+        ],
+        "mean": 52.695,
+        "stdev": 0.236,
+        "cv_percent": 0.45
+      },
+      "error_examples": []
+    },
+    "point_lookup": {
+      "warm": {
+        "n": 900,
+        "p50": 44.076,
+        "p90": 47.407,
+        "p95": 48.107,
+        "p99": 48.625,
+        "mean": 44.464,
+        "stdev": 1.431,
+        "min": 42.537,
+        "max": 52.069,
+        "errors": 0,
+        "timeouts": 0,
+        "rows_returned_median": 1.0
+      },
+      "cold": {
+        "n": 90,
+        "p50": 44.112,
+        "p90": 47.195,
+        "p95": 47.888,
+        "p99": 78.674,
+        "mean": 44.838,
+        "stdev": 3.853,
+        "min": 42.897,
+        "max": 78.674,
+        "errors": 0,
+        "timeouts": 0,
+        "rows_returned_median": 0.0
+      },
+      "variance_p50_across_repeats": {
+        "values": [
+          44.084,
+          44.12,
+          44.025
+        ],
+        "mean": 44.076,
+        "stdev": 0.048,
+        "cv_percent": 0.11
+      },
+      "variance_p95_across_repeats": {
+        "values": [
+          48.338,
+          47.73,
+          48.069
+        ],
+        "mean": 48.046,
+        "stdev": 0.305,
+        "cv_percent": 0.63
+      },
+      "error_examples": []
+    },
+    "filtered_lookup": {
+      "warm": {
+        "n": 900,
+        "p50": 44.066,
+        "p90": 46.976,
+        "p95": 48.033,
+        "p99": 48.837,
+        "mean": 44.459,
+        "stdev": 1.377,
+        "min": 42.475,
+        "max": 51.523,
+        "errors": 0,
+        "timeouts": 0,
+        "rows_returned_median": 100.0
+      },
+      "cold": {
+        "n": 90,
+        "p50": 44.067,
+        "p90": 45.094,
+        "p95": 48.226,
+        "p99": 64.124,
+        "mean": 44.576,
+        "stdev": 2.421,
+        "min": 43.029,
+        "max": 64.124,
+        "errors": 0,
+        "timeouts": 0,
+        "rows_returned_median": 0.0
+      },
+      "variance_p50_across_repeats": {
+        "values": [
+          44.081,
+          44.058,
+          44.058
+        ],
+        "mean": 44.066,
+        "stdev": 0.013,
+        "cv_percent": 0.03
+      },
+      "variance_p95_across_repeats": {
+        "values": [
+          48.011,
+          48.122,
+          47.841
+        ],
+        "mean": 47.991,
+        "stdev": 0.142,
+        "cv_percent": 0.3
+      },
+      "error_examples": []
+    },
+    "aggregation": {
+      "warm": {
+        "n": 900,
+        "p50": 48.028,
+        "p90": 48.817,
+        "p95": 49.135,
+        "p99": 51.895,
+        "mean": 48.071,
+        "stdev": 0.827,
+        "min": 45.774,
+        "max": 53.371,
+        "errors": 0,
+        "timeouts": 0,
+        "rows_returned_median": 12.0
+      },
+      "cold": {
+        "n": 90,
+        "p50": 48.001,
+        "p90": 49.002,
+        "p95": 49.127,
+        "p99": 56.708,
+        "mean": 48.075,
+        "stdev": 1.235,
+        "min": 45.283,
+        "max": 56.708,
+        "errors": 0,
+        "timeouts": 0,
+        "rows_returned_median": 0.0
+      },
+      "variance_p50_across_repeats": {
+        "values": [
+          48.057,
+          47.99,
+          48.034
+        ],
+        "mean": 48.027,
+        "stdev": 0.034,
+        "cv_percent": 0.07
+      },
+      "variance_p95_across_repeats": {
+        "values": [
+          49.169,
+          49.328,
+          48.956
+        ],
+        "mean": 49.151,
+        "stdev": 0.187,
+        "cv_percent": 0.38
+      },
+      "error_examples": []
+    }
+  },
+  "mixed": [
+    {
+      "concurrency": 1,
+      "duration_s": 60.013,
+      "operations": 1346,
+      "reads": 1209,
+      "writes": 137,
+      "errors": 0,
+      "qps": 22.43,
+      "read_latency": {
+        "n": 1209,
+        "p50": 44.101,
+        "p90": 47.545,
+        "p95": 48.153,
+        "p99": 48.9,
+        "mean": 44.549,
+        "stdev": 1.928,
+        "min": 2.776,
+        "max": 52.32,
+        "errors": 0,
+        "timeouts": 0,
+        "rows_returned_median": 0.0
+      },
+      "write_latency": {
+        "n": 137,
+        "p50": 44.119,
+        "p90": 47.396,
+        "p95": 47.975,
+        "p99": 48.788,
+        "mean": 44.845,
+        "stdev": 3.922,
+        "min": 42.61,
+        "max": 87.391,
+        "errors": 0,
+        "timeouts": 0,
+        "rows_returned_median": 0.0
+      }
+    },
+    {
+      "concurrency": 10,
+      "duration_s": 60.049,
+      "operations": 13026,
+      "reads": 11740,
+      "writes": 1286,
+      "errors": 0,
+      "qps": 216.92,
+      "read_latency": {
+        "n": 11740,
+        "p50": 45.228,
+        "p90": 49.443,
+        "p95": 50.621,
+        "p99": 52.879,
+        "mean": 46.061,
+        "stdev": 2.664,
+        "min": 2.406,
+        "max": 60.206,
+        "errors": 0,
+        "timeouts": 0,
+        "rows_returned_median": 0.0
+      },
+      "write_latency": {
+        "n": 1286,
+        "p50": 45.413,
+        "p90": 49.659,
+        "p95": 50.813,
+        "p99": 53.483,
+        "mean": 46.171,
+        "stdev": 2.594,
+        "min": 42.275,
+        "max": 56.387,
+        "errors": 0,
+        "timeouts": 0,
+        "rows_returned_median": 0.0
+      }
+    },
+    {
+      "concurrency": 40,
+      "duration_s": 60.053,
+      "operations": 42504,
+      "reads": 38174,
+      "writes": 4330,
+      "errors": 3,
+      "qps": 707.77,
+      "read_latency": {
+        "n": 38174,
+        "p50": 54.591,
+        "p90": 69.72,
+        "p95": 75.83,
+        "p99": 90.203,
+        "mean": 56.467,
+        "stdev": 10.685,
+        "min": 1.948,
+        "max": 142.142,
+        "errors": 0,
+        "timeouts": 0,
+        "rows_returned_median": 0.0
+      },
+      "write_latency": {
+        "n": 4330,
+        "p50": 54.738,
+        "p90": 69.645,
+        "p95": 75.871,
+        "p99": 89.021,
+        "mean": 56.526,
+        "stdev": 10.47,
+        "min": 5.327,
+        "max": 109.766,
+        "errors": 0,
+        "timeouts": 0,
+        "rows_returned_median": 0.0
+      }
+    }
+  ],
+  "footprint": {
+    "advertised": "0.5 vCPU / 256 MB (cgroup)",
+    "papers_figures": "not observable (AttributeError)",
+    "cites_figures": "not observable (AttributeError)"
+  },
+  "total_seconds": 457.82,
+  "finished_utc": "2026-08-20T11:55:50.881716+00:00"
+}

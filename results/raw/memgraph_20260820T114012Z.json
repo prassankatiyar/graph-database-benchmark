@@ -1,0 +1,556 @@
+{
+  "platform": "memgraph",
+  "display_name": "Memgraph 2.x (self-hosted, capped)",
+  "engine": "Memgraph (in-memory, C++)",
+  "query_language": "Cypher (Bolt)",
+  "deployment": "self-hosted-capped",
+  "advertised": {
+    "vcpu": "0.5 (cgroup limit)",
+    "ram": "256 MB (cgroup limit)",
+    "disk": "1 GB volume"
+  },
+  "started_utc": "2026-08-20T11:36:22.762578+00:00",
+  "host": {
+    "hostname": "DESKTOP-FSOCI3R",
+    "python": "3.13.1",
+    "platform": "Windows-11-10.0.22631-SP0",
+    "processor": "AMD64 Family 23 Model 96 Stepping 1, AuthenticAMD",
+    "harness_version": "1.0.0",
+    "git_sha": "unknown"
+  },
+  "dataset": {
+    "name": "cit-HepTh",
+    "node_count": 5325,
+    "edge_count": 100000,
+    "nodes_csv_sha256": "3647cb65a4d5c363079b397edec082ac49f359cdca79e66fc57e42b80ff3bf40",
+    "edges_csv_sha256": "7a864b985afb5d605354dd6b3d9ab6c027b07d62a3d3e3b097072385d9d401ab"
+  },
+  "config": {
+    "iterations": 300,
+    "warmup": 30,
+    "repeats": 3,
+    "batch_size": 2000,
+    "concurrency_levels": [
+      1,
+      10,
+      40
+    ],
+    "mixed_duration_s": 60.0,
+    "read_ratio": 0.9
+  },
+  "caveats": [],
+  "network": {
+    "tcp_rtt": {
+      "median_ms": 0.972,
+      "min_ms": 0.399,
+      "samples": 20
+    }
+  },
+  "ingest": {
+    "nodes_loaded": 5325,
+    "relationships_loaded": 100000,
+    "node_seconds": 0.242,
+    "relationship_seconds": 3.705,
+    "total_seconds": 3.947,
+    "nodes_per_second": 22001.3,
+    "relationships_per_second": 26987.3,
+    "method": "official neo4j Python driver, UNWIND-batched CREATE over Bolt; relationships matched on the unique :Paper(id) constraint",
+    "batch_size": 2000
+  },
+  "schema_applied": [
+    "CREATE CONSTRAINT ON (p:Paper) ASSERT p.id IS UNIQUE",
+    "CREATE INDEX ON :Paper(id)",
+    "CREATE INDEX ON :Paper(year)"
+  ],
+  "verified_node_count": 5325,
+  "verified_relationship_count": 100000,
+  "dataset_matches": true,
+  "reads": {
+    "hop1": {
+      "warm": {
+        "n": 900,
+        "p50": 1.661,
+        "p90": 2.421,
+        "p95": 2.804,
+        "p99": 3.844,
+        "mean": 1.825,
+        "stdev": 1.371,
+        "min": 0.975,
+        "max": 38.278,
+        "errors": 0,
+        "timeouts": 0,
+        "rows_returned_median": 16.0
+      },
+      "cold": {
+        "n": 90,
+        "p50": 1.915,
+        "p90": 2.77,
+        "p95": 3.088,
+        "p99": 3.675,
+        "mean": 1.994,
+        "stdev": 0.551,
+        "min": 1.187,
+        "max": 3.675,
+        "errors": 0,
+        "timeouts": 0,
+        "rows_returned_median": 0.0
+      },
+      "variance_p50_across_repeats": {
+        "values": [
+          1.806,
+          1.598,
+          1.612
+        ],
+        "mean": 1.672,
+        "stdev": 0.116,
+        "cv_percent": 6.94
+      },
+      "variance_p95_across_repeats": {
+        "values": [
+          3.119,
+          2.597,
+          2.414
+        ],
+        "mean": 2.71,
+        "stdev": 0.366,
+        "cv_percent": 13.51
+      },
+      "error_examples": []
+    },
+    "hop2": {
+      "warm": {
+        "n": 900,
+        "p50": 7.396,
+        "p90": 16.295,
+        "p95": 18.099,
+        "p99": 22.218,
+        "mean": 8.471,
+        "stdev": 5.1,
+        "min": 1.175,
+        "max": 47.976,
+        "errors": 0,
+        "timeouts": 0,
+        "rows_returned_median": 201.5
+      },
+      "cold": {
+        "n": 90,
+        "p50": 7.326,
+        "p90": 16.031,
+        "p95": 17.349,
+        "p99": 22.042,
+        "mean": 8.611,
+        "stdev": 4.38,
+        "min": 3.006,
+        "max": 22.042,
+        "errors": 0,
+        "timeouts": 0,
+        "rows_returned_median": 0.0
+      },
+      "variance_p50_across_repeats": {
+        "values": [
+          7.694,
+          7.098,
+          7.234
+        ],
+        "mean": 7.342,
+        "stdev": 0.312,
+        "cv_percent": 4.25
+      },
+      "variance_p95_across_repeats": {
+        "values": [
+          18.944,
+          17.273,
+          18.099
+        ],
+        "mean": 18.105,
+        "stdev": 0.836,
+        "cv_percent": 4.62
+      },
+      "error_examples": []
+    },
+    "hop3": {
+      "warm": {
+        "n": 900,
+        "p50": 23.435,
+        "p90": 43.435,
+        "p95": 46.759,
+        "p99": 53.537,
+        "mean": 24.654,
+        "stdev": 13.861,
+        "min": 1.049,
+        "max": 60.02,
+        "errors": 0,
+        "timeouts": 0,
+        "rows_returned_median": 765.0
+      },
+      "cold": {
+        "n": 90,
+        "p50": 24.53,
+        "p90": 41.333,
+        "p95": 43.647,
+        "p99": 51.419,
+        "mean": 25.293,
+        "stdev": 11.296,
+        "min": 7.452,
+        "max": 51.419,
+        "errors": 0,
+        "timeouts": 0,
+        "rows_returned_median": 0.0
+      },
+      "variance_p50_across_repeats": {
+        "values": [
+          23.438,
+          23.346,
+          23.09
+        ],
+        "mean": 23.291,
+        "stdev": 0.18,
+        "cv_percent": 0.77
+      },
+      "variance_p95_across_repeats": {
+        "values": [
+          46.469,
+          48.818,
+          46.759
+        ],
+        "mean": 47.349,
+        "stdev": 1.281,
+        "cv_percent": 2.71
+      },
+      "error_examples": []
+    },
+    "point_lookup": {
+      "warm": {
+        "n": 900,
+        "p50": 1.183,
+        "p90": 1.437,
+        "p95": 1.504,
+        "p99": 1.701,
+        "mean": 1.218,
+        "stdev": 0.161,
+        "min": 0.981,
+        "max": 1.808,
+        "errors": 0,
+        "timeouts": 0,
+        "rows_returned_median": 1.0
+      },
+      "cold": {
+        "n": 90,
+        "p50": 1.137,
+        "p90": 1.506,
+        "p95": 1.643,
+        "p99": 1.884,
+        "mean": 1.215,
+        "stdev": 0.189,
+        "min": 1.038,
+        "max": 1.884,
+        "errors": 0,
+        "timeouts": 0,
+        "rows_returned_median": 0.0
+      },
+      "variance_p50_across_repeats": {
+        "values": [
+          1.09,
+          1.326,
+          1.13
+        ],
+        "mean": 1.182,
+        "stdev": 0.126,
+        "cv_percent": 10.66
+      },
+      "variance_p95_across_repeats": {
+        "values": [
+          1.373,
+          1.606,
+          1.506
+        ],
+        "mean": 1.495,
+        "stdev": 0.117,
+        "cv_percent": 7.83
+      },
+      "error_examples": []
+    },
+    "filtered_lookup": {
+      "warm": {
+        "n": 900,
+        "p50": 4.366,
+        "p90": 5.271,
+        "p95": 5.526,
+        "p99": 7.36,
+        "mean": 4.514,
+        "stdev": 0.703,
+        "min": 3.675,
+        "max": 11.663,
+        "errors": 0,
+        "timeouts": 0,
+        "rows_returned_median": 100.0
+      },
+      "cold": {
+        "n": 90,
+        "p50": 4.37,
+        "p90": 5.321,
+        "p95": 5.445,
+        "p99": 5.614,
+        "mean": 4.476,
+        "stdev": 0.499,
+        "min": 3.771,
+        "max": 5.614,
+        "errors": 0,
+        "timeouts": 0,
+        "rows_returned_median": 0.0
+      },
+      "variance_p50_across_repeats": {
+        "values": [
+          4.33,
+          4.52,
+          4.306
+        ],
+        "mean": 4.385,
+        "stdev": 0.117,
+        "cv_percent": 2.67
+      },
+      "variance_p95_across_repeats": {
+        "values": [
+          5.158,
+          5.821,
+          4.937
+        ],
+        "mean": 5.305,
+        "stdev": 0.46,
+        "cv_percent": 8.67
+      },
+      "error_examples": []
+    },
+    "aggregation": {
+      "warm": {
+        "n": 900,
+        "p50": 3.128,
+        "p90": 3.816,
+        "p95": 4.267,
+        "p99": 25.645,
+        "mean": 3.884,
+        "stdev": 3.788,
+        "min": 2.523,
+        "max": 34.928,
+        "errors": 0,
+        "timeouts": 0,
+        "rows_returned_median": 12.0
+      },
+      "cold": {
+        "n": 90,
+        "p50": 3.109,
+        "p90": 3.682,
+        "p95": 3.821,
+        "p99": 4.381,
+        "mean": 3.155,
+        "stdev": 0.384,
+        "min": 2.648,
+        "max": 4.381,
+        "errors": 0,
+        "timeouts": 0,
+        "rows_returned_median": 0.0
+      },
+      "variance_p50_across_repeats": {
+        "values": [
+          3.079,
+          3.192,
+          3.125
+        ],
+        "mean": 3.132,
+        "stdev": 0.057,
+        "cv_percent": 1.82
+      },
+      "variance_p95_across_repeats": {
+        "values": [
+          4.221,
+          4.071,
+          4.364
+        ],
+        "mean": 4.219,
+        "stdev": 0.147,
+        "cv_percent": 3.48
+      },
+      "error_examples": []
+    }
+  },
+  "mixed": [
+    {
+      "concurrency": 1,
+      "duration_s": 60.006,
+      "operations": 36955,
+      "reads": 33333,
+      "writes": 3622,
+      "errors": 0,
+      "qps": 615.86,
+      "read_latency": {
+        "n": 33333,
+        "p50": 1.589,
+        "p90": 2.148,
+        "p95": 2.383,
+        "p99": 3.15,
+        "mean": 1.666,
+        "stdev": 0.445,
+        "min": 1.001,
+        "max": 6.726,
+        "errors": 0,
+        "timeouts": 0,
+        "rows_returned_median": 0.0
+      },
+      "write_latency": {
+        "n": 3622,
+        "p50": 1.116,
+        "p90": 1.357,
+        "p95": 1.461,
+        "p99": 1.684,
+        "mean": 1.163,
+        "stdev": 0.169,
+        "min": 0.954,
+        "max": 4.304,
+        "errors": 0,
+        "timeouts": 0,
+        "rows_returned_median": 0.0
+      }
+    },
+    {
+      "concurrency": 10,
+      "duration_s": 60.006,
+      "operations": 46228,
+      "reads": 41677,
+      "writes": 4551,
+      "errors": 0,
+      "qps": 770.39,
+      "read_latency": {
+        "n": 41677,
+        "p50": 12.324,
+        "p90": 24.024,
+        "p95": 28.938,
+        "p99": 44.599,
+        "mean": 14.036,
+        "stdev": 9.294,
+        "min": 1.123,
+        "max": 121.04,
+        "errors": 0,
+        "timeouts": 0,
+        "rows_returned_median": 0.0
+      },
+      "write_latency": {
+        "n": 4551,
+        "p50": 2.783,
+        "p90": 5.476,
+        "p95": 6.441,
+        "p99": 8.63,
+        "mean": 3.226,
+        "stdev": 1.955,
+        "min": 1.046,
+        "max": 60.438,
+        "errors": 0,
+        "timeouts": 0,
+        "rows_returned_median": 0.0
+      }
+    },
+    {
+      "concurrency": 40,
+      "duration_s": 60.024,
+      "operations": 45422,
+      "reads": 40788,
+      "writes": 4634,
+      "errors": 1,
+      "qps": 756.73,
+      "read_latency": {
+        "n": 40788,
+        "p50": 50.231,
+        "p90": 99.657,
+        "p95": 119.731,
+        "p99": 181.839,
+        "mean": 57.292,
+        "stdev": 38.451,
+        "min": 1.257,
+        "max": 492.924,
+        "errors": 0,
+        "timeouts": 0,
+        "rows_returned_median": 0.0
+      },
+      "write_latency": {
+        "n": 4634,
+        "p50": 8.682,
+        "p90": 40.84,
+        "p95": 46.97,
+        "p99": 55.017,
+        "mean": 13.54,
+        "stdev": 13.922,
+        "min": 1.217,
+        "max": 128.151,
+        "errors": 0,
+        "timeouts": 0,
+        "rows_returned_median": 0.0
+      }
+    }
+  ],
+  "footprint": {
+    "storage_info": [
+      {
+        "storage info": "name",
+        "value": "memgraph"
+      },
+      {
+        "storage info": "vertex_count",
+        "value": 5325
+      },
+      {
+        "storage info": "edge_count",
+        "value": 100000
+      },
+      {
+        "storage info": "average_degree",
+        "value": 37.55868544600939
+      },
+      {
+        "storage info": "vm_max_map_count",
+        "value": 262144
+      },
+      {
+        "storage info": "memory_res",
+        "value": "157.49MiB"
+      },
+      {
+        "storage info": "peak_memory_res",
+        "value": "282.60MiB"
+      },
+      {
+        "storage info": "unreleased_delta_objects",
+        "value": 0
+      },
+      {
+        "storage info": "disk_usage",
+        "value": "38.00MiB"
+      },
+      {
+        "storage info": "memory_tracked",
+        "value": "105.36MiB"
+      },
+      {
+        "storage info": "allocation_limit",
+        "value": "230.00MiB"
+      },
+      {
+        "storage info": "global_isolation_level",
+        "value": "SNAPSHOT_ISOLATION"
+      },
+      {
+        "storage info": "session_isolation_level",
+        "value": ""
+      },
+      {
+        "storage info": "next_session_isolation_level",
+        "value": ""
+      },
+      {
+        "storage info": "storage_mode",
+        "value": "IN_MEMORY_TRANSACTIONAL"
+      }
+    ],
+    "advertised": "0.5 vCPU / 256 MB (cgroup)"
+  },
+  "total_seconds": 229.17,
+  "finished_utc": "2026-08-20T11:40:12.348617+00:00"
+}

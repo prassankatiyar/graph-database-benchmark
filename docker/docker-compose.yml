@@ -1,0 +1,101 @@
+# Self-hosted platforms, capped to the CognoDB c0 free tier.
+#
+#   0.5 vCPU  ->  cpus: "0.5"
+#   256 MB    ->  mem_limit: 256m  +  memswap_limit: 256m
+#   1 GB disk ->  a 1 GiB loopback volume per service (see scripts/make-volumes.sh)
+#
+# memswap_limit is the important one. Docker's --memory alone still lets a
+# container swap, so a database that "fits in 256 MB" may actually be running
+# in 256 MB of RAM plus unbounded swap, which is a completely different
+# machine. Setting memswap_limit equal to mem_limit disables swap entirely.
+#
+# Run this on a cloud VM in the same region as your managed instances, not on
+# your laptop -- see README section "The network is part of the benchmark".
+#
+#   docker compose --env-file .env -f docker/docker-compose.yml up -d
+#   docker stats --no-stream       # verify the caps actually applied
+#
+# `--env-file .env` is not optional. Compose resolves ${VARS} against a .env
+# file in the *compose file's own directory* (docker/), not the repo root, so
+# without this flag ARANGO_PASSWORD comes back empty and the stack refuses to
+# start.
+
+services:
+  memgraph:
+    image: memgraph/memgraph:2.18.1
+    container_name: bench-memgraph
+    command:
+      - "--log-level=WARNING"
+      - "--also-log-to-stderr"
+      # Memgraph will happily OOM-kill itself against a hard cgroup limit;
+      # telling it its own budget lets it fail queries gracefully instead,
+      # and a failed query is data we can report.
+      - "--memory-limit=230"
+      - "--storage-snapshot-on-exit=false"
+    ports:
+      - "7688:7687"
+    cpus: "0.5"
+    mem_limit: 256m
+    memswap_limit: 256m
+    volumes:
+      - memgraph_data:/var/lib/memgraph
+
+  falkordb:
+    image: falkordb/falkordb:v4.2.2
+    container_name: bench-falkordb
+    ports:
+      - "6379:6379"
+    cpus: "0.5"
+    mem_limit: 256m
+    memswap_limit: 256m
+    # Passed through to redis-server by the image entrypoint. Do NOT override
+    # `command:` here -- the entrypoint is what loads the FalkorDB module, and
+    # replacing it gives you a plain Redis with no graph support that fails
+    # only once the benchmark tries its first query.
+    #
+    # Verify the limit actually applied before trusting any FalkorDB number:
+    #   docker exec bench-falkordb redis-cli CONFIG GET maxmemory
+    # It should print 241172480 (230 MiB), not 0.
+    environment:
+      REDIS_ARGS: "--maxmemory 230mb --maxmemory-policy noeviction --save ''"
+    volumes:
+      - falkordb_data:/data
+
+  arangodb:
+    image: arangodb:3.11.8
+    container_name: bench-arangodb
+    environment:
+      ARANGO_ROOT_PASSWORD: ${ARANGO_PASSWORD:?set ARANGO_PASSWORD in your .env}
+    ports:
+      - "8529:8529"
+    cpus: "0.5"
+    mem_limit: 256m
+    memswap_limit: 256m
+    command:
+      - "arangod"
+      # ArangoDB sizes its caches and query budget from *host* RAM, not from
+      # the cgroup it is running in. On a 16 GB laptop it will happily decide
+      # a single AQL query may use 4.8 GB, then get OOM-killed inside a 256 MB
+      # container. Every flag below exists to tell it the truth about its box.
+      #
+      # Note: --rocksdb.total-write-buffer-size is deliberately NOT set here.
+      # It has a minimum ArangoDB enforces at startup, and passing a value
+      # below it is a fatal error, not a warning:
+      #   FATAL {startup} invalid value for '--rocksdb.total-write-buffer-size'
+      - "--rocksdb.block-cache-size=67108864"
+      - "--rocksdb.enforce-block-cache-size-limit=true"
+      - "--cache.size=16777216"
+      # Without this, one query is permitted a multiple of the whole container.
+      - "--query.memory-limit=134217728"
+      # V8 contexts are among the largest fixed allocations in an arangod
+      # process, and nothing in this benchmark uses server-side JavaScript.
+      - "--javascript.v8-contexts=1"
+      - "--foxx.queues=false"
+      - "--server.statistics=false"
+    volumes:
+      - arangodb_data:/var/lib/arangodb3
+
+volumes:
+  memgraph_data:
+  falkordb_data:
+  arangodb_data:

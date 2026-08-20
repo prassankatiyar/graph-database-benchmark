@@ -1,0 +1,21 @@
+# Pinned on purpose: benchmark numbers are only comparable if the client
+# stack is identical between runs. Regenerate with `pip freeze` if you bump.
+
+# Bolt / Cypher -> CognoDB Cloud, Neo4j AuraDB, Memgraph
+neo4j==5.28.1
+
+# Cypher over RESP -> FalkorDB
+falkordb==1.0.10
+
+# HTTP / AQL -> ArangoDB
+python-arango==8.1.2
+
+# Reporting
+matplotlib==3.9.2
+tabulate==0.9.0
+
+# Config + CLI plumbing
+python-dotenv==1.0.1
+
+# Tests
+pytest==8.3.3
